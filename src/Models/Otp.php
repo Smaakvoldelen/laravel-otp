@@ -2,6 +2,7 @@
 
 namespace Smaakvoldelen\Otp\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class Otp extends Model
@@ -24,7 +25,7 @@ class Otp extends Model
      * @var array<string>
      */
     protected $hidden = [
-        'token'
+        'token',
     ];
 
     /**
@@ -36,4 +37,12 @@ class Otp extends Model
         'expires_at' => 'datetime',
         'validated_at' => 'datetime',
     ];
+
+    /**
+     * Determine if the OTP is valid.
+     */
+    public function valid(): Attribute
+    {
+        return Attribute::get(fn () => $this->expires_at->isFuture() && $this->validated_at === null);
+    }
 }

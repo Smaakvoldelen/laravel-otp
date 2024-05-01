@@ -1,6 +1,5 @@
 <?php
 
-// config for Smaakvoldelen/Otp
 return [
-
+    'model' => \Smaakvoldelen\Otp\Models\Otp::class,
 ];
