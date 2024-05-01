@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Smaakvoldelen\Otp\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class OtpCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-otp';
 
     public $description = 'My command';
 
