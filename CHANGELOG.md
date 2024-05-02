@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-otp` will be documented in this file.
 
+## 0.5.1 - 2024-05-02
+
+**Full Changelog**: https://github.com/Smaakvoldelen/laravel-otp/compare/0.5.0...0.5.1
+
 ## 0.5.0 - 2024-05-02
 
 ### What's Changed
