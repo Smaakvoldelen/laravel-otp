@@ -41,7 +41,7 @@ class TestCase extends Orchestra
         // Create migrations.
         $migration = include __DIR__.'/../database/migrations/create_otps_table.php.stub';
         $migration->up();
-        
+
         // Create users tables.
         $schema = $app['db']->connection()->getSchemaBuilder();
 

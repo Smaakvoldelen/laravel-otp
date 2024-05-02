@@ -4,7 +4,12 @@ namespace Smaakvoldelen\Otp\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property ?Carbon $expires_at
+ * @property ?Carbon $validated_at
+ */
 class Otp extends Model
 {
     /**
@@ -22,7 +27,7 @@ class Otp extends Model
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array<string>
+     * @var array<int, string>
      */
     protected $hidden = [
         'token',
@@ -31,7 +36,7 @@ class Otp extends Model
     /**
      * The attributes that should be cast.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'expires_at' => 'datetime',
