@@ -1,3 +1,5 @@
+![Unit conversions for Laravel Banner](https://banners.beyondco.de/Unit%20conversions%20for%20Laravel.png?theme=light&packageManager=composer+require&packageName=smaakvoldelen%2Flaravel-units&pattern=architect&style=style_1&description=Laravel+package+for+representing+and+converting+physical+units+of+measure.&md=1&showWatermark=1&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg)
+
 # One-time password authentication for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/smaakvoldelen/laravel-otp.svg?style=flat-square)](https://packagist.org/packages/smaakvoldelen/laravel-otp)
@@ -5,15 +7,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/smaakvoldelen/laravel-otp/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/smaakvoldelen/laravel-otp/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/smaakvoldelen/laravel-otp.svg?style=flat-square)](https://packagist.org/packages/smaakvoldelen/laravel-otp)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-otp.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-otp)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+This a Laravel package to authenticate a user using one-time passwords.
 
 ## Installation
 
@@ -36,25 +30,9 @@ You can publish the config file with:
 php artisan vendor:publish --tag="laravel-otp-config"
 ```
 
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-otp-views"
-```
-
 ## Usage
 
-```php
-$otp = new Smaakvoldelen\Otp();
-echo $otp->echoPhrase('Hello, Smaakvoldelen!');
-```
+Coming soon, since this package is still in beta
 
 ## Testing
 
