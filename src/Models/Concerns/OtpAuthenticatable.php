@@ -20,7 +20,7 @@ trait OtpAuthenticatable
     /**
      * Generate an OTP token and save it to the database.
      */
-    public function generateOtp(string $identifier, OTPType $type = OTPType::NUMERIC, int $length = 6, int $expire = 10): Otp
+    public function generateOtp(?string $identifier = null, OTPType $type = OTPType::NUMERIC, int $length = 6, int $expire = 10): Otp
     {
         $token = match ($type) {
             OTPType::NUMERIC => $this->generateNumericToken($length),
@@ -28,7 +28,7 @@ trait OtpAuthenticatable
         };
 
         return $this->otps()->create([
-            'identifier' => $identifier,
+            'identifier' => $identifier ?? $this->getOtpIdentifier(),
             'token' => $token,
             'expires_at' => now()->addMinutes($expire),
         ]);
@@ -69,6 +69,6 @@ trait OtpAuthenticatable
      */
     protected function generateNumericToken(int $length): string
     {
-        return (string)rand(10 ** ($length - 1), (10 ** $length) - 1);
+        return (string) rand(10 ** ($length - 1), (10 ** $length) - 1);
     }
 }
