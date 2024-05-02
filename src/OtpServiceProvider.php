@@ -12,6 +12,7 @@ class OtpServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-otp')
             ->hasConfigFile()
-            ->hasMigration('create_otps_table');
+            ->hasMigration('create_otps_table')
+            ->hasTranslations();
     }
 }

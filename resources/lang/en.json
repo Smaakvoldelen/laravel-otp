@@ -1,0 +1,7 @@
+{
+    "One-time password notification": "One-time password notification",
+    "You are receiving this email because we received a one-time password request for your account.": "You are receiving this email because we received a one-time password request for your account.",
+    "The one-time password is: :otp": "The one-time password is: :otp",
+    "This one-time password will expire in :count minutes.": "This one-time password will expire in :count minutes.",
+    "If you did not request a one-time password, no further action is required.": "If you did not request a one-time password, no further action is required."
+}
