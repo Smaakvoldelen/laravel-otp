@@ -34,16 +34,17 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app): void
     {
         config()->set('database.default', 'testing');
-
-        // Create migrations.
-        $migration = include __DIR__.'/../database/migrations/create_otps_table.php.stub';
-        $migration->up();
     }
 
     protected function setUpDatabase(?Application $app): void
     {
+        // Create migrations.
+        $migration = include __DIR__.'/../database/migrations/create_otps_table.php.stub';
+        $migration->up();
+        
         // Create users tables.
         $schema = $app['db']->connection()->getSchemaBuilder();
+
         $schema->create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email');
