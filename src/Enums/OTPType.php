@@ -2,8 +2,8 @@
 
 namespace Smaakvoldelen\Otp\Enums;
 
-enum OTPType
+enum OTPType: string
 {
-    case NUMERIC;
-    case ALPHANUMERIC;
+    case NUMERIC = 'numeric';
+    case ALPHANUMERIC = 'alphanumeric';
 }

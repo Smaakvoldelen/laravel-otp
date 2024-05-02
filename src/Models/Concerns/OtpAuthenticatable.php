@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Str;
 use Smaakvoldelen\Otp\Enums\OTPType;
 use Smaakvoldelen\Otp\Models\Otp;
+use Smaakvoldelen\Otp\Notifications\OtpNotification;
 
 trait OtpAuthenticatable
 {
@@ -20,8 +21,11 @@ trait OtpAuthenticatable
     /**
      * Generate an OTP token and save it to the database.
      */
-    public function generateOtp(?string $identifier = null, OTPType $type = OTPType::NUMERIC, int $length = 6, int $expire = 10): Otp
+    public function generateOtp(?string $identifier = null, ?int $length = null, ?int $expire = null, ?OTPType $type = null): Otp
     {
+        $length = $length ?? config('otp.length', 6);
+        $type = $type ?? OTPType::tryFrom(config('otp.type')) ?? OTPType::NUMERIC;
+
         $token = match ($type) {
             OTPType::NUMERIC => $this->generateNumericToken($length),
             OTPType::ALPHANUMERIC => $this->generateAlphanumericToken($length),
@@ -30,17 +34,33 @@ trait OtpAuthenticatable
         return $this->otps()->create([
             'identifier' => $identifier ?? $this->getOtpIdentifier(),
             'token' => $token,
-            'expires_at' => now()->addMinutes($expire),
+            'expires_at' => now()->addMinutes($expire ?? config('otp.expire', 10)),
         ]);
+    }
+
+    /**
+     * Get the OTP identifier.
+     */
+    public function getOtpIdentifier(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * Send an OTP notification to the user.
+     */
+    public function sendOtpNotification(string $token): void
+    {
+        $this->notify(new OtpNotification($token));
     }
 
     /**
      * Validates an OTP token and updates the database accordingly.
      */
-    public function validateOtp(string $identifier, string $token): bool
+    public function validateOtp(string $token, ?string $identifier = null): bool
     {
         $otp = $this->otps()
-            ->where('identifier', '=', $identifier)
+            ->where('identifier', '=', $identifier ?? $this->getOtpIdentifier())
             ->where('token', '=', $token)
             ->whereNull('validated_at')
             ->first();
