@@ -5,6 +5,10 @@ namespace Smaakvoldelen\Otp;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Smaakvoldelen\Otp\Contracts\LockoutResponse as LockoutResponseContract;
+use Smaakvoldelen\Otp\Contracts\SentOtpResponse as SendOtpResponseContract;
+use Smaakvoldelen\Otp\Http\Responses\LockoutResponse;
+use Smaakvoldelen\Otp\Http\Responses\SentOtpResponse;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -35,6 +39,8 @@ class OtpServiceProvider extends PackageServiceProvider
      */
     public function packageRegistered(): void
     {
+        $this->registerResponseBindings();
+
         $this->app->bind(StatefulGuard::class, function () {
             return Auth::guard(config('otp.guard'));
         });
@@ -54,5 +60,14 @@ class OtpServiceProvider extends PackageServiceProvider
                 $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
             });
         }
+    }
+
+    /**
+     * Register the response bindings.
+     */
+    protected function registerResponseBindings(): void
+    {
+        $this->app->singleton(LockoutResponseContract::class, LockoutResponse::class);
+        $this->app->singleton(SendOtpResponseContract::class, SentOtpResponse::class);
     }
 }
