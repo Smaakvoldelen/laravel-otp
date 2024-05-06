@@ -35,9 +35,6 @@ class SendOtpController extends Controller
 
     /**
      * Send the OTP pipeline.
-     *
-     * @param SendOtpRequest $request
-     * @return Pipeline
      */
     protected function sendOtpPipeline(SendOtpRequest $request): Pipeline
     {
