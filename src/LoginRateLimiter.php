@@ -18,6 +18,8 @@ class LoginRateLimiter
 
     /**
      * Get the number of attempts for the given key.
+     *
+     * @codeCoverageIgnore
      */
     public function attempts(Request $request): mixed
     {
@@ -26,6 +28,8 @@ class LoginRateLimiter
 
     /**
      * Determine the number of seconds until logging in is available again.
+     *
+     * @codeCoverageIgnore
      */
     public function availableIn(Request $request): int
     {

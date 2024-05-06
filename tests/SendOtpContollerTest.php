@@ -1,7 +1,10 @@
 <?php
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Smaakvoldelen\Otp\LoginRateLimiter;
 use Smaakvoldelen\Otp\Otp;
+
+uses(RefreshDatabase::class);
 
 beforeEach(function () {
     Otp::sendOtpView(fn () => response('OK'));
