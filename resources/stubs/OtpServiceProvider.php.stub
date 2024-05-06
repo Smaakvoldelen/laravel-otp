@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Smaakvoldelen\Otp\Otp;
+
+class OtpServiceProvider extends ServiceProvider
+{
+    /**
+     * Bootstrap any application services.
+     * @return void
+     */
+    public function boot(): void
+    {
+        Otp::sendOtpView(view('auth.send-otp'));
+        Otp::verifyOtpView(view('auth.verify-otp'));
+    }
+
+    /**
+     * Register any application services.
+     * @return void
+     */
+    public function register(): void
+    {
+        //
+    }
+}

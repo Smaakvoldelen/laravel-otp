@@ -13,6 +13,7 @@ use Smaakvoldelen\Otp\Http\Responses\LockoutResponse;
 use Smaakvoldelen\Otp\Http\Responses\SentOtpResponse;
 use Smaakvoldelen\Otp\Http\Responses\VerifyOtpFailedResponse;
 use Smaakvoldelen\Otp\Http\Responses\VerifyOtpSuccessResponse;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -27,7 +28,16 @@ class OtpServiceProvider extends PackageServiceProvider
             ->name('laravel-otp')
             ->hasConfigFile()
             ->hasMigration('create_otps_table')
-            ->hasTranslations();
+            ->hasTranslations()
+            ->hasInstallCommand(function (InstallCommand $command) {
+                return $command->publishConfigFile()
+                    ->publishMigrations()
+                    ->askToRunMigrations()
+                    ->copyAndRegisterServiceProviderInApp()
+                    ->endWith(function (InstallCommand $command) {
+                        $command->info('One-time password package installed.');
+                    });
+            });
     }
 
     /**
