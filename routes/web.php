@@ -20,4 +20,7 @@ Route::group(['middleware' => config('otp.middleware', ['web'])], function () {
 
     Route::post(Otp::route('login', '/login'), [SendOtpController::class, 'store'])
         ->name('login.store');
+
+    Route::post(Otp::route('login-verify', '/login-verify'), [VerifyOtpController::class, 'store'])
+        ->name('login.verify.store');
 });
