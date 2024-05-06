@@ -29,14 +29,14 @@ class OtpServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasMigration('create_otps_table')
             ->hasTranslations()
+            ->publishesServiceProvider('OtpServiceProvider')
             ->hasInstallCommand(function (InstallCommand $command) {
+                $command->hidden = false;
+
                 return $command->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->copyAndRegisterServiceProviderInApp()
-                    ->endWith(function (InstallCommand $command) {
-                        $command->info('One-time password package installed.');
-                    });
+                    ->copyAndRegisterServiceProviderInApp();
             });
     }
 
