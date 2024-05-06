@@ -3,6 +3,7 @@
 namespace Smaakvoldelen\Otp;
 
 use Smaakvoldelen\Otp\Contracts\SendOtpViewResponse;
+use Smaakvoldelen\Otp\Contracts\VerifyOtpViewResponse;
 use Smaakvoldelen\Otp\Http\Responses\SimpleViewResponse;
 
 class Otp
@@ -57,6 +58,16 @@ class Otp
     public static function sendOtpView($view): void
     {
         app()->singleton(SendOtpViewResponse::class, function () use ($view) {
+            return new SimpleViewResponse($view);
+        });
+    }
+
+    /**
+     * Specify which view should be used as the verify one-time password view.
+     */
+    public static function verifyOtpView($view): void
+    {
+        app()->singleton(VerifyOtpViewResponse::class, function () use ($view) {
             return new SimpleViewResponse($view);
         });
     }
