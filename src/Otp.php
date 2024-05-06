@@ -33,7 +33,7 @@ class Otp
     /**
      * Get a completion redirect path for a specific feature.
      */
-    public function redirects(string $redirect, ?string $default = null): string
+    public static function redirects(string $redirect, ?string $default = null): string
     {
         return config('otp.redirects.'.$redirect) ?? $default ?? config('otp.home');
     }
@@ -41,7 +41,7 @@ class Otp
     /**
      * Get the route path for the given route name.
      */
-    public function route(string $routeName, string $default): string
+    public static function route(string $routeName, string $default): string
     {
         return config('otp.routes.'.$routeName) ?? $default;
     }
@@ -49,7 +49,7 @@ class Otp
     /**
      * Specify which view should be used as the send one-time password view.
      */
-    public function sendOtpView($view): void
+    public static function sendOtpView($view): void
     {
         app()->singleton(SendOtpViewResponse::class, function () use ($view) {
             return new SimpleViewResponse($view);

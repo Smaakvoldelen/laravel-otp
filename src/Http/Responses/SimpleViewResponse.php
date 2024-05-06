@@ -21,6 +21,8 @@ class SimpleViewResponse implements SendOtpViewResponse
 
     /**
      * Create an HTTP response that represents the object.
+     *
+     * @codeCoverageIgnore
      */
     public function toResponse($request): Response|View
     {
@@ -29,7 +31,6 @@ class SimpleViewResponse implements SendOtpViewResponse
         }
 
         $response = call_user_func($this->view, $request);
-
         if ($response instanceof Responsable) {
             return $response->toResponse($request);
         }

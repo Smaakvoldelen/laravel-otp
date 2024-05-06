@@ -7,11 +7,12 @@ use Illuminate\Routing\Controller;
 use Illuminate\Routing\Pipeline;
 use Smaakvoldelen\Otp\Actions\CanonicalizeUsername;
 use Smaakvoldelen\Otp\Actions\EnsureLoginIsNotThrottled;
+use Smaakvoldelen\Otp\Actions\SendOtp;
 use Smaakvoldelen\Otp\Contracts\SendOtpViewResponse;
 use Smaakvoldelen\Otp\Contracts\SentOtpResponse;
 use Smaakvoldelen\Otp\Http\Requests\SendOtpRequest;
 
-class SendOTPController extends Controller
+class SendOtpController extends Controller
 {
     /**
      * Show the send one-time password view.
@@ -38,6 +39,7 @@ class SendOTPController extends Controller
         return (new Pipeline(app()))->send($request)->through(array_filter([
             config('otp.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
             config('otp.lowercase_usernames') ? CanonicalizeUsername::class : null,
+            SendOtp::class,
         ]));
     }
 }
