@@ -2,7 +2,6 @@
 
 namespace Smaakvoldelen\Otp\Http\Controllers;
 
-use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Pipeline;
@@ -12,6 +11,7 @@ use Smaakvoldelen\Otp\Actions\SendOtp;
 use Smaakvoldelen\Otp\Contracts\SendOtpViewResponse;
 use Smaakvoldelen\Otp\Contracts\SentOtpResponse;
 use Smaakvoldelen\Otp\Http\Requests\SendOtpRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class SendOtpController extends Controller
 {
@@ -26,7 +26,7 @@ class SendOtpController extends Controller
     /**
      * Attempt to send an OTP to the user.
      */
-    public function store(SendOtpRequest $request): Responsable
+    public function store(SendOtpRequest $request): Response
     {
         return $this->sendOtpPipeline($request)->then(function ($request) {
             return app(SentOtpResponse::class);
