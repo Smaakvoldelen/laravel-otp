@@ -31,7 +31,7 @@ class SendOtp
         $user = $this->validateCredentials($request);
         // @codeCoverageIgnoreStart
         if (in_array(OtpAuthenticatable::class, class_uses_recursive($user))) {
-            throw new BadMethodCallException($user::class . ' does not implement ' . OtpAuthenticatable::class);
+            throw new BadMethodCallException($user::class.' does not implement '.OtpAuthenticatable::class);
         }
         // @codeCoverageIgnoreEnd
 

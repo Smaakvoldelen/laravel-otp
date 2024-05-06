@@ -7,7 +7,7 @@ use Smaakvoldelen\Otp\Http\Responses\SimpleViewResponse;
 
 class Otp
 {
-    public final function __construct()
+    final public function __construct()
     {
         //
     }
