@@ -3,10 +3,11 @@
 namespace Smaakvoldelen\Otp\Http\Responses;
 
 use Illuminate\Http\JsonResponse;
-use Smaakvoldelen\Otp\Contracts\SentOtpResponse as SendOtpResponseContract;
+use Smaakvoldelen\Otp\Contracts\LogoutResponse as LogoutResponseContract;
+use Smaakvoldelen\Otp\Otp;
 use Symfony\Component\HttpFoundation\Response;
 
-class SentOtpResponse implements SendOtpResponseContract
+class LogoutResponse implements LogoutResponseContract
 {
     /**
      * Create an HTTP response that represents the object.
@@ -15,6 +16,6 @@ class SentOtpResponse implements SendOtpResponseContract
     {
         return $request->wantsJson()
             ? new JsonResponse('', 204)
-            : redirect()->intended(route('login.verify'));
+            : redirect(Otp::redirects('logout'));
     }
 }

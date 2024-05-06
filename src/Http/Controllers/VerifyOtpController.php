@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class VerifyOtpController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     */
     public function __construct(protected StatefulGuard $guard)
     {
     }
