@@ -6,10 +6,12 @@ use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Smaakvoldelen\Otp\Contracts\LockoutResponse as LockoutResponseContract;
+use Smaakvoldelen\Otp\Contracts\LogoutResponse as LogoutResponseContract;
 use Smaakvoldelen\Otp\Contracts\SentOtpResponse as SendOtpResponseContract;
 use Smaakvoldelen\Otp\Contracts\VerifyOtpFailedResponse as VerifyOtpFailedResponseContract;
 use Smaakvoldelen\Otp\Contracts\VerifyOtpSuccessResponse as VerifyOtpSuccessResponseContract;
 use Smaakvoldelen\Otp\Http\Responses\LockoutResponse;
+use Smaakvoldelen\Otp\Http\Responses\LogoutResponse;
 use Smaakvoldelen\Otp\Http\Responses\SentOtpResponse;
 use Smaakvoldelen\Otp\Http\Responses\VerifyOtpFailedResponse;
 use Smaakvoldelen\Otp\Http\Responses\VerifyOtpSuccessResponse;
@@ -82,6 +84,7 @@ class OtpServiceProvider extends PackageServiceProvider
     protected function registerResponseBindings(): void
     {
         $this->app->singleton(LockoutResponseContract::class, LockoutResponse::class);
+        $this->app->singleton(LogoutResponseContract::class, LogoutResponse::class);
         $this->app->singleton(SendOtpResponseContract::class, SentOtpResponse::class);
         $this->app->singleton(VerifyOtpFailedResponseContract::class, VerifyOtpFailedResponse::class);
         $this->app->singleton(VerifyOtpSuccessResponseContract::class, VerifyOtpSuccessResponse::class);

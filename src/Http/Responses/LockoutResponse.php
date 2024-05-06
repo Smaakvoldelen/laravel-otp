@@ -2,7 +2,6 @@
 
 namespace Smaakvoldelen\Otp\Http\Responses;
 
-use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Smaakvoldelen\Otp\Contracts\LockoutResponse as LockoutResponseContract;
 use Smaakvoldelen\Otp\LoginRateLimiter;
@@ -21,8 +20,6 @@ class LockoutResponse implements LockoutResponseContract
 
     /**
      * Create an HTTP response that represents the object.
-     *
-     * @param  Request  $request
      */
     public function toResponse($request): Response
     {
