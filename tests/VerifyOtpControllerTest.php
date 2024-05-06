@@ -35,7 +35,7 @@ it('user can verify an opt using the login verify screen', function () {
     ]);
 
     $response = $this->post(route('login.verify.store'), [
-        'code' => $code->token
+        'code' => $code->token,
     ]);
 
     $response->assertRedirect(Otp::redirects('login'));
@@ -54,7 +54,7 @@ it('user can verify an opt using json', function () {
     ]);
 
     $response = $this->postJson(route('login.verify.store'), [
-        'code' => $code->token
+        'code' => $code->token,
     ]);
 
     $response->assertNoContent();

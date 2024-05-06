@@ -54,8 +54,8 @@ class VerifyOtpRequest extends FormRequest
         $model = app(StatefulGuard::class)->getProvider()->getModel();
 
         if (
-            !$this->session()->has('login.id') ||
-            !$user = $model::find($this->session()->get('login.id'))
+            ! $this->session()->has('login.id') ||
+            ! $user = $model::find($this->session()->get('login.id'))
         ) {
             throw new HttpResponseException(app(VerifyOtpFailedResponse::class)->toResponse($this));
         }
@@ -87,9 +87,9 @@ class VerifyOtpRequest extends FormRequest
     {
         // @phpstan-ignore-next-line
         return $this->code && tap($this->challengerUser()->validateOtp($this->code), function ($result) {
-                $this->session()->forget('login.id');
-                app(LoginRateLimiter::class)->clear($this);
-            });
+            $this->session()->forget('login.id');
+            app(LoginRateLimiter::class)->clear($this);
+        });
     }
 
     /**
@@ -97,7 +97,7 @@ class VerifyOtpRequest extends FormRequest
      */
     public function remember(): bool
     {
-        if (!$this->remember) {
+        if (! $this->remember) {
             $this->remember = $this->session()->pull('login.remember', false);
         }
 

@@ -22,7 +22,7 @@ class VerifyOtpController extends Controller
      */
     public function create(VerifyOtpRequest $request): VerifyOtpViewResponse
     {
-        if (!$request->hasChallengedUser()) {
+        if (! $request->hasChallengedUser()) {
             throw new HttpResponseException(redirect()->route('login'));
         }
 
@@ -35,7 +35,7 @@ class VerifyOtpController extends Controller
     public function store(VerifyOtpRequest $request): Response
     {
         $user = $request->challengerUser();
-        if (!$request->hasValidCode()){
+        if (! $request->hasValidCode()) {
             return app(VerifyOtpFailedResponse::class)->toResponse($request);
         }
 
