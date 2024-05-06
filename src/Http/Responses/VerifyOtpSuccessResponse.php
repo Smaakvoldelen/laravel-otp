@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class VerifyOtpSuccessResponse implements VerifyOtpSuccessResponseContract
 {
+    /**
+     * Create an HTTP response that represents the object.
+     */
     public function toResponse($request): Response
     {
         return $request->wantsJson()

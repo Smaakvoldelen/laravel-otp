@@ -116,6 +116,7 @@ return [
 
     'redirects' => [
         'login' => null,
+        'logout' => null,
     ],
 
     'routes' => [

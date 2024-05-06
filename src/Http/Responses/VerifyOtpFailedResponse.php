@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class VerifyOtpFailedResponse implements VerifyOtpFailedResponseContract
 {
+    /**
+     * Create an HTTP response that represents the object.
+     */
     public function toResponse($request): Response
     {
         [$key, $message] = ['code', trans('The provided one-time password was invalid.')];
