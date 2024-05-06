@@ -120,6 +120,7 @@ return [
 
     'routes' => [
         'login' => null,
+        'login-verify' => null,
     ],
 
     /*

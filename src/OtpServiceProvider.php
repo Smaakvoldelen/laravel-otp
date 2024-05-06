@@ -7,8 +7,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Smaakvoldelen\Otp\Contracts\LockoutResponse as LockoutResponseContract;
 use Smaakvoldelen\Otp\Contracts\SentOtpResponse as SendOtpResponseContract;
+use Smaakvoldelen\Otp\Contracts\VerifyOtpFailedResponse as VerifyOtpFailedResponseContract;
+use Smaakvoldelen\Otp\Contracts\VerifyOtpSuccessResponse as VerifyOtpSuccessResponseContract;
 use Smaakvoldelen\Otp\Http\Responses\LockoutResponse;
 use Smaakvoldelen\Otp\Http\Responses\SentOtpResponse;
+use Smaakvoldelen\Otp\Http\Responses\VerifyOtpFailedResponse;
+use Smaakvoldelen\Otp\Http\Responses\VerifyOtpSuccessResponse;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -69,5 +73,7 @@ class OtpServiceProvider extends PackageServiceProvider
     {
         $this->app->singleton(LockoutResponseContract::class, LockoutResponse::class);
         $this->app->singleton(SendOtpResponseContract::class, SentOtpResponse::class);
+        $this->app->singleton(VerifyOtpFailedResponseContract::class, VerifyOtpFailedResponse::class);
+        $this->app->singleton(VerifyOtpSuccessResponseContract::class, VerifyOtpSuccessResponse::class);
     }
 }
