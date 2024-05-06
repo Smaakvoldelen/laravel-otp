@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Contracts\Auth\Authenticatable;
-use Smaakvoldelen\Otp\Otp;
 
 it('user can logout', function () {
     Auth::guard()->setUser(
@@ -16,7 +15,7 @@ it('user can logout', function () {
         ->toBeNull();
 });
 
-it ('user can logout using json', function () {
+it('user can logout using json', function () {
     Auth::guard()->setUser(
         Mockery::mock(Authenticatable::class)->shouldIgnoreMissing()
     );
