@@ -29,8 +29,8 @@ class SendOtp
     {
         $user = $this->validateCredentials($request);
         // @codeCoverageIgnoreStart
-        if (!in_array(OtpAuthenticatable::class, class_uses_recursive($user))) {
-            throw new BadMethodCallException($user::class . ' does not implement ' . OtpAuthenticatable::class);
+        if (! in_array(OtpAuthenticatable::class, class_uses_recursive($user))) {
+            throw new BadMethodCallException($user::class.' does not implement '.OtpAuthenticatable::class);
         }
         // @codeCoverageIgnoreEnd
 
@@ -63,7 +63,7 @@ class SendOtp
         $model = $this->guard->getProvider()->getModel();
 
         return tap($model::where(Otp::username(), '=', $request->{Otp::username()})->first(), function ($user) use ($request) {
-            if (!$user) {
+            if (! $user) {
                 $this->fireFailedEvent($request, $user);
 
                 $this->throwFailedAuthenticationException($request);

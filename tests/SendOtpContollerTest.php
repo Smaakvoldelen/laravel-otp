@@ -25,12 +25,12 @@ it('users can request an otp using the login screen', function () {
     $response->assertRedirect(route('login.verify'));
 });
 
-it ('users can request an otp using json', function() {
+it('users can request an otp using json', function () {
     $user = \Workbench\App\Models\User::create([
         'email' => 'testuser@example.com',
     ]);
 
-    $response = $this->postJson(route('login.store'),[
+    $response = $this->postJson(route('login.store'), [
         'email' => $user->email,
     ]);
 
@@ -38,18 +38,18 @@ it ('users can request an otp using json', function() {
 });
 
 it('invalid user cannot request an otp using the login screen', function () {
-    $response =  $this->post(route('login.store'), [
+    $response = $this->post(route('login.store'), [
         'email' => 'invalid',
     ]);
 
     $response->assertRedirect();
     $response->assertSessionHasErrors([
-        Otp::username()
+        Otp::username(),
     ]);
 });
 
-it ('cannot request an otp if attempted too many times', function() {
-    $this->mock(LoginRateLimiter::class, function($mock) {
+it('cannot request an otp if attempted too many times', function () {
+    $this->mock(LoginRateLimiter::class, function ($mock) {
         $mock->shouldReceive('tooManyAttempts')->andReturn(true);
         $mock->shouldReceive('availableIn')->andReturn(10);
     });
@@ -61,6 +61,6 @@ it ('cannot request an otp if attempted too many times', function() {
 
     $response->assertTooManyRequests();
     $response->assertJsonValidationErrors([
-        Otp::username()
+        Otp::username(),
     ]);
-});;
+});

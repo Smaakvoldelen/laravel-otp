@@ -22,7 +22,7 @@ class SendOtpRequest extends FormRequest
     {
         return [
             Otp::username() => ['required', 'string'],
-            'remember' => ['sometimes', 'boolean']
+            'remember' => ['sometimes', 'boolean'],
         ];
     }
 }
