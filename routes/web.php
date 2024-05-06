@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Smaakvoldelen\Otp\Http\Controllers\LogoutController;
 use Smaakvoldelen\Otp\Http\Controllers\SendOtpController;
 use Smaakvoldelen\Otp\Http\Controllers\VerifyOtpController;
 use Smaakvoldelen\Otp\Otp;
@@ -23,4 +24,7 @@ Route::group(['middleware' => config('otp.middleware', ['web'])], function () {
 
     Route::post(Otp::route('login-verify', '/login-verify'), [VerifyOtpController::class, 'store'])
         ->name('login.verify.store');
+
+    Route::post(Otp::route('logout', '/logout'), LogoutController::class)
+        ->name('logout');
 });
