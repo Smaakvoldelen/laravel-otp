@@ -50,7 +50,9 @@ class VerifyOtpRequest extends FormRequest
         }
         // @codeCoverageIgnoreEnd
 
+        // @phpstan-ignore-next-line
         $model = app(StatefulGuard::class)->getProvider()->getModel();
+
         if (
             !$this->session()->has('login.id') ||
             !$user = $model::find($this->session()->get('login.id'))
@@ -72,6 +74,7 @@ class VerifyOtpRequest extends FormRequest
         }
         // @codeCoverageIgnoreEnd
 
+        // @phpstan-ignore-next-line
         $model = app(StatefulGuard::class)->getProvider()->getModel();
 
         return $this->session->has('login.id') && $model::find($this->session()->get('login.id'));
@@ -82,6 +85,7 @@ class VerifyOtpRequest extends FormRequest
      */
     public function hasValidCode(): bool
     {
+        // @phpstan-ignore-next-line
         return $this->code && tap($this->challengerUser()->validateOtp($this->code), function ($result) {
                 $this->session()->forget('login.id');
                 app(LoginRateLimiter::class)->clear($this);
