@@ -34,6 +34,8 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app): void
     {
         config()->set('database.default', 'testing');
+        config()->set('app.key', 'base64:W99w+5JYz8SVGf5sx17gmPR6uoNCtWiEVc+9qu8iGEg=');
+        config()->set('auth.providers.users.model', User::class);
     }
 
     protected function setUpDatabase(?Application $app): void
