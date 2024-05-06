@@ -25,7 +25,6 @@ trait OtpAuthenticatable
     {
         $length = $length ?? config('otp.length', 6);
         $type = $type ?? OTPType::tryFrom(config('otp.type')) ?? OTPType::NUMERIC;
-
         $token = match ($type) {
             OTPType::NUMERIC => $this->generateNumericToken($length),
             OTPType::ALPHANUMERIC => $this->generateAlphanumericToken($length),

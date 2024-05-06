@@ -74,10 +74,7 @@
         "laravel": {
             "providers": [
                 "Smaakvoldelen\\Otp\\OtpServiceProvider"
-            ],
-            "aliases": {
-                "Otp": "Smaakvoldelen\\Otp\\Facades\\Otp"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",

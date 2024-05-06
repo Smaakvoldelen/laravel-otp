@@ -56,6 +56,74 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Username / Email
+    |--------------------------------------------------------------------------
+    |
+    | This value defines which model attribute should be considered as your
+    | application's "username" field. Typically, this might be the email
+    | address of the users but you are free to change this value here.
+    |
+    | Out of the box, Laravel OTP expects sending one-time password requests to
+    | have a field named 'email'. If the application uses another name for the
+    | field you may define it below as needed.
+    |
+    */
+
+    'username' => 'email',
+
+    'email' => 'email',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Lowercase Usernames
+    |--------------------------------------------------------------------------
+    |
+    | This value defines whether usernames should be lowercased before saving
+    | them in the database, as some database system string fields are case
+    | sensitive. You may disable this for your application if necessary.
+    |
+    */
+
+    'lowercase_usernames' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Home Path
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure the path where users will get redirected during
+    | authentication when the operations are successful and the user is
+    | authenticated. You are free to change this value.
+    |
+    */
+
+    'home' => '/',
+
+    /*
+    |--------------------------------------------------------------------------
+    | OTP Routes Prefix / Subdomain
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify which prefix Fortify will assign to all the routes
+    | that it registers with the application. If necessary, you may change
+    | subdomain under which all of the Laravel OTP routes will be available.
+    |
+    */
+
+    'prefix' => '',
+
+    'domain' => null,
+
+    'redirects' => [
+        'login' => null,
+    ],
+
+    'routes' => [
+        'login' => null,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | OTP Routes Middleware
     |--------------------------------------------------------------------------
     |
