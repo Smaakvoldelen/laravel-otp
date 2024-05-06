@@ -87,8 +87,10 @@ class VerifyOtpRequest extends FormRequest
     {
         // @phpstan-ignore-next-line
         return $this->code && tap($this->challengerUser()->validateOtp($this->code), function ($result) {
-            $this->session()->forget('login.id');
-            app(LoginRateLimiter::class)->clear($this);
+            if ($result) {
+                $this->session()->forget('login.id');
+                app(LoginRateLimiter::class)->clear($this);
+            }
         });
     }
 
