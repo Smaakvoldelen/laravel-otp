@@ -2,6 +2,7 @@
 
 namespace Smaakvoldelen\Otp\Http\Controllers;
 
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Pipeline;
@@ -24,17 +25,21 @@ class SendOtpController extends Controller
 
     /**
      * Attempt to send an OTP to the user.
-     *
-     * @return void
      */
-    public function store(SendOtpRequest $request)
+    public function store(SendOtpRequest $request): Responsable
     {
         return $this->sendOtpPipeline($request)->then(function ($request) {
             return app(SentOtpResponse::class);
         });
     }
 
-    protected function sendOtpPipeline(SendOtpRequest $request)
+    /**
+     * Send the OTP pipeline.
+     *
+     * @param SendOtpRequest $request
+     * @return Pipeline
+     */
+    protected function sendOtpPipeline(SendOtpRequest $request): Pipeline
     {
         return (new Pipeline(app()))->send($request)->through(array_filter([
             config('otp.limiters.login') ? null : EnsureLoginIsNotThrottled::class,

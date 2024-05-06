@@ -7,6 +7,11 @@ use Smaakvoldelen\Otp\Http\Responses\SimpleViewResponse;
 
 class Otp
 {
+    public final function __construct()
+    {
+        //
+    }
+
     /**
      * Indicate if Laravel OTP should register routes.
      */

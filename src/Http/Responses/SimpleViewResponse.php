@@ -2,8 +2,8 @@
 
 namespace Smaakvoldelen\Otp\Http\Responses;
 
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\View\View;
-use RectorPrefix202404\Illuminate\Contracts\Support\Responsable;
 use Smaakvoldelen\Otp\Contracts\SendOtpViewResponse;
 use Symfony\Component\HttpFoundation\Response;
 

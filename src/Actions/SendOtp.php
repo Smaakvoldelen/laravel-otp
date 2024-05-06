@@ -27,14 +27,18 @@ class SendOtp
      */
     public function handle(Request $request, callable $next): mixed
     {
+        /** @var Authenticatable|null $user */
         $user = $this->validateCredentials($request);
         // @codeCoverageIgnoreStart
-        if (! in_array(OtpAuthenticatable::class, class_uses_recursive($user))) {
-            throw new BadMethodCallException($user::class.' does not implement '.OtpAuthenticatable::class);
+        if (in_array(OtpAuthenticatable::class, class_uses_recursive($user))) {
+            throw new BadMethodCallException($user::class . ' does not implement ' . OtpAuthenticatable::class);
         }
         // @codeCoverageIgnoreEnd
 
+        // @phpstan-ignore-next-line
         $token = $user->generateOtp();
+
+        // @phpstan-ignore-next-line
         $user->sendOtpNotification($token->token);
 
         $request->session()->put([
@@ -48,7 +52,7 @@ class SendOtp
     /**
      * Fire the failed authentication attempt event with the given arguments.
      */
-    protected function fireFailedEvent(Request $request, ?Authenticatable $user = null): void
+    protected function fireFailedEvent(Request $request, $user = null): void
     {
         event(new Failed(config('otp.guard'), $user, [
             Otp::username() => $request->{Otp::username()},
@@ -60,6 +64,7 @@ class SendOtp
      */
     protected function validateCredentials(Request $request): Authenticatable
     {
+        // @phpstan-ignore-next-line
         $model = $this->guard->getProvider()->getModel();
 
         return tap($model::where(Otp::username(), '=', $request->{Otp::username()})->first(), function ($user) use ($request) {
