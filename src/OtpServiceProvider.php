@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Smaakvoldelen\Otp\Contracts\LockoutResponse as LockoutResponseContract;
 use Smaakvoldelen\Otp\Contracts\LogoutResponse as LogoutResponseContract;
+use Smaakvoldelen\Otp\Contracts\RegisterResponse as RegisterResponseContract;
 use Smaakvoldelen\Otp\Contracts\SentOtpResponse as SendOtpResponseContract;
 use Smaakvoldelen\Otp\Contracts\VerifyOtpFailedResponse as VerifyOtpFailedResponseContract;
 use Smaakvoldelen\Otp\Contracts\VerifyOtpSuccessResponse as VerifyOtpSuccessResponseContract;
 use Smaakvoldelen\Otp\Http\Responses\LockoutResponse;
 use Smaakvoldelen\Otp\Http\Responses\LogoutResponse;
+use Smaakvoldelen\Otp\Http\Responses\RegisterResponse;
 use Smaakvoldelen\Otp\Http\Responses\SentOtpResponse;
 use Smaakvoldelen\Otp\Http\Responses\VerifyOtpFailedResponse;
 use Smaakvoldelen\Otp\Http\Responses\VerifyOtpSuccessResponse;
@@ -37,6 +39,7 @@ class OtpServiceProvider extends PackageServiceProvider
 
                 return $command->publishConfigFile()
                     ->publishMigrations()
+                    ->publish('support')
                     ->askToRunMigrations()
                     ->copyAndRegisterServiceProviderInApp();
             });
@@ -47,6 +50,7 @@ class OtpServiceProvider extends PackageServiceProvider
      */
     public function packageBooted(): void
     {
+        $this->configurePublishing();
         $this->bootingRoutes();
     }
 
@@ -60,6 +64,18 @@ class OtpServiceProvider extends PackageServiceProvider
         $this->app->bind(StatefulGuard::class, function () {
             return Auth::guard(config('otp.guard'));
         });
+    }
+
+    /**
+     * Configure the publishable resources offered by the package.
+     */
+    private function configurePublishing(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../resources/stubs/CreateNewUser.php.stub' => app_path('Actions/User/CreateNewUser.php'),
+            ], "{$this->package->shortName()}-support");
+        }
     }
 
     /**
@@ -86,6 +102,7 @@ class OtpServiceProvider extends PackageServiceProvider
         $this->app->singleton(LockoutResponseContract::class, LockoutResponse::class);
         $this->app->singleton(LogoutResponseContract::class, LogoutResponse::class);
         $this->app->singleton(SendOtpResponseContract::class, SentOtpResponse::class);
+        $this->app->singleton(RegisterResponseContract::class, RegisterResponse::class);
         $this->app->singleton(VerifyOtpFailedResponseContract::class, VerifyOtpFailedResponse::class);
         $this->app->singleton(VerifyOtpSuccessResponseContract::class, VerifyOtpSuccessResponse::class);
     }

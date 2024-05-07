@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Actions\User;
+
+use App\Models\User;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Smaakvoldelen\Otp\Contracts\CreateNewUser as CreateNewUserContract;
+use Smaakvoldelen\Otp\Otp;
+
+class CreateNewUser implements CreateNewUserContract
+{
+    public function create(array $input): Authenticatable
+    {
+        Validator::make($input, [
+            'name' => ['required', 'string', 'max:255'],
+            Otp::username() => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)],
+        ])
+            ->validate();
+
+        return User::create([
+            'name' => $input['name'],
+            Otp::username() => $input[Otp::username()],
+        ]);
+    }
+}

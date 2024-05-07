@@ -13,8 +13,11 @@ class OtpServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Otp::registerView(view('auth.register'));
         Otp::sendOtpView(view('auth.send-otp'));
         Otp::verifyOtpView(view('auth.verify-otp'));
+
+        Otp::createUsersUsing();
     }
 
     /**
