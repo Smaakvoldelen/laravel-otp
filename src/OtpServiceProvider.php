@@ -73,7 +73,7 @@ class OtpServiceProvider extends PackageServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../resources/stubs/CreateNewUser.php.stub' => app_path('Actions/User/CreateNewUser.php'),
+                __DIR__.'/../resources/stubs/CreateNewUser.php.stub' => app_path('Actions/User/CreateNewUser.php'),
             ], "{$this->package->shortName()}-support");
         }
     }
