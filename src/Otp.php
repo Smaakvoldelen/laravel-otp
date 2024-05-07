@@ -2,12 +2,17 @@
 
 namespace Smaakvoldelen\Otp;
 
+use Smaakvoldelen\Otp\Contracts\CreateNewUser;
+use Smaakvoldelen\Otp\Contracts\RegisterViewResponse;
 use Smaakvoldelen\Otp\Contracts\SendOtpViewResponse;
 use Smaakvoldelen\Otp\Contracts\VerifyOtpViewResponse;
 use Smaakvoldelen\Otp\Http\Responses\SimpleViewResponse;
 
 class Otp
 {
+    /**
+     * Create a new instance.
+     */
     final public function __construct()
     {
         //
@@ -17,6 +22,14 @@ class Otp
      * Indicate if Laravel OTP should register routes.
      */
     public static bool $registerRoutes = true;
+
+    /**
+     * Register a class / callback that should be used to create new users.
+     */
+    public static function createUsersUsing(string $callback): void
+    {
+        app()->singleton(CreateNewUser::class, $callback);
+    }
 
     /**
      * Get the name of the email address request variable / field.
@@ -42,6 +55,16 @@ class Otp
     public static function redirects(string $redirect, ?string $default = null): string
     {
         return config('otp.redirects.'.$redirect) ?? $default ?? config('otp.home');
+    }
+
+    /**
+     * Specify which view should be used as the registration view.
+     */
+    public static function registerView($view): void
+    {
+        app()->singleton(RegisterViewResponse::class, function () use ($view) {
+            return new SimpleViewResponse($view);
+        });
     }
 
     /**

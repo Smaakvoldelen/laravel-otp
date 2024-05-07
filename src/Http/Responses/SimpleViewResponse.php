@@ -4,11 +4,12 @@ namespace Smaakvoldelen\Otp\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\View\View;
+use Smaakvoldelen\Otp\Contracts\RegisterViewResponse;
 use Smaakvoldelen\Otp\Contracts\SendOtpViewResponse;
 use Smaakvoldelen\Otp\Contracts\VerifyOtpViewResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class SimpleViewResponse implements SendOtpViewResponse, VerifyOtpViewResponse
+class SimpleViewResponse implements RegisterViewResponse, SendOtpViewResponse, VerifyOtpViewResponse
 {
     /**
      * Create a new response instance.
