@@ -11,6 +11,9 @@ use Smaakvoldelen\Otp\Otp;
 
 class CreateNewUser implements CreateNewUserContract
 {
+    /**
+     * Validate and create a newly registered user.
+     */
     public function create(array $input): Authenticatable
     {
         Validator::make($input, [
