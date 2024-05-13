@@ -68,6 +68,16 @@ it('should redirect to login if user did not request an otp', function () {
 });
 
 it('should redirect to login verify if otp is invalid', function () {
+    $user = \Workbench\App\Models\User::create([
+        'email' => 'testuser@example.com',
+    ]);
+
+    $code = $user->generateOtp();
+
+    $this->postJson(route('login.store'), [
+        'email' => $user->email,
+    ]);
+
     $response = $this->post(route('login.verify.store'), [
         'code' => 'invalid',
     ]);

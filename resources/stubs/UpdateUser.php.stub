@@ -6,23 +6,23 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Smaakvoldelen\Otp\Contracts\CreateNewUser as CreateNewUserContract;
+use Smaakvoldelen\Otp\Contracts\UpdateUser as UpdateUserContract;
 use Smaakvoldelen\Otp\Otp;
 
-class CreateNewUser implements CreateNewUserContract
+class UpdateUser implements UpdateUserContract
 {
     /**
-     * Validate and create a newly registered user.
+     * Validate and update the given user.
      */
-    public function create(array $input): Authenticatable
+    public function update(Authenticatable $user, array $input): bool
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
-            Otp::username() => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)],
+            Otp::username() => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)->ignoreModel($user)],
         ])
             ->validate();
 
-        return User::create([
+        return $user->update([
             'name' => $input['name'],
             Otp::username() => $input[Otp::username()],
         ]);

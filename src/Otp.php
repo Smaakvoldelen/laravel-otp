@@ -5,6 +5,7 @@ namespace Smaakvoldelen\Otp;
 use Smaakvoldelen\Otp\Contracts\CreateNewUser;
 use Smaakvoldelen\Otp\Contracts\RegisterViewResponse;
 use Smaakvoldelen\Otp\Contracts\SendOtpViewResponse;
+use Smaakvoldelen\Otp\Contracts\UpdateUser;
 use Smaakvoldelen\Otp\Contracts\VerifyOtpViewResponse;
 use Smaakvoldelen\Otp\Http\Responses\SimpleViewResponse;
 
@@ -83,6 +84,14 @@ class Otp
         app()->singleton(SendOtpViewResponse::class, function () use ($view) {
             return new SimpleViewResponse($view);
         });
+    }
+
+    /**
+     * Register a class / callback that should be used to create update the current user
+     */
+    public static function updateUserUsing(string $callback): void
+    {
+        app()->singleton(UpdateUser::class, $callback);
     }
 
     /**

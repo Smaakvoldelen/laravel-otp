@@ -7,7 +7,10 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/smaakvoldelen/laravel-otp/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/smaakvoldelen/laravel-otp/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/smaakvoldelen/laravel-otp.svg?style=flat-square)](https://packagist.org/packages/smaakvoldelen/laravel-otp)
 
-This a Laravel package to authenticate a user using one-time passwords.
+This a Laravel package to authenticate a user using one-time passwords. Laravel one-time password powers the 
+registration, authentication and update features and can be well used with [Laravel Jetstream](https://github.com/laravel/jetstream).
+
+The package is heavily inspired by Laravel Fortify
 
 ## Installation
 

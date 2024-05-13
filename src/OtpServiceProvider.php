@@ -9,12 +9,14 @@ use Smaakvoldelen\Otp\Contracts\LockoutResponse as LockoutResponseContract;
 use Smaakvoldelen\Otp\Contracts\LogoutResponse as LogoutResponseContract;
 use Smaakvoldelen\Otp\Contracts\RegisterResponse as RegisterResponseContract;
 use Smaakvoldelen\Otp\Contracts\SentOtpResponse as SendOtpResponseContract;
+use Smaakvoldelen\Otp\Contracts\UpdateUserResponse as UpdateUserResponseContract;
 use Smaakvoldelen\Otp\Contracts\VerifyOtpFailedResponse as VerifyOtpFailedResponseContract;
 use Smaakvoldelen\Otp\Contracts\VerifyOtpSuccessResponse as VerifyOtpSuccessResponseContract;
 use Smaakvoldelen\Otp\Http\Responses\LockoutResponse;
 use Smaakvoldelen\Otp\Http\Responses\LogoutResponse;
 use Smaakvoldelen\Otp\Http\Responses\RegisterResponse;
 use Smaakvoldelen\Otp\Http\Responses\SentOtpResponse;
+use Smaakvoldelen\Otp\Http\Responses\UpdateUserResponse;
 use Smaakvoldelen\Otp\Http\Responses\VerifyOtpFailedResponse;
 use Smaakvoldelen\Otp\Http\Responses\VerifyOtpSuccessResponse;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
@@ -74,6 +76,7 @@ class OtpServiceProvider extends PackageServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../resources/stubs/CreateNewUser.php.stub' => app_path('Actions/User/CreateNewUser.php'),
+                __DIR__.'/../resources/stubs/UpdateUser.php.stub' => app_path('Actions/User/UpdateUser.php'),
             ], "{$this->package->shortName()}-support");
         }
     }
@@ -103,6 +106,7 @@ class OtpServiceProvider extends PackageServiceProvider
         $this->app->singleton(LogoutResponseContract::class, LogoutResponse::class);
         $this->app->singleton(SendOtpResponseContract::class, SentOtpResponse::class);
         $this->app->singleton(RegisterResponseContract::class, RegisterResponse::class);
+        $this->app->singleton(UpdateUserResponseContract::class, UpdateUserResponse::class);
         $this->app->singleton(VerifyOtpFailedResponseContract::class, VerifyOtpFailedResponse::class);
         $this->app->singleton(VerifyOtpSuccessResponseContract::class, VerifyOtpSuccessResponse::class);
     }
