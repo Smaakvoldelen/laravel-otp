@@ -48,7 +48,7 @@ class TestCase extends Orchestra
         $schema = $app['db']->connection()->getSchemaBuilder();
 
         $schema->create('users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('email');
             $table->timestamps();
         });
